@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
 
-@TeleOp(name="Joes_Play_Ball_v1")
+@TeleOp(name="Eddie _Play_Ball_v1")
 public class Eddies_Play_Ball_v1 extends LinearOpMode {
 
     // Declare OpMode members.
@@ -89,23 +89,8 @@ public class Eddies_Play_Ball_v1 extends LinearOpMode {
             Right.setPower(Yvalue2);
 
 
-
-            //  The A and B buttons are used to turn ON/OFF the automatic launching mode
-            if(buttonA) {
-                telemetry.addData("TURNING ON AUTO", "      A");
-                telemetry.update();
-                start_game = true; // auto mode
-            }
-            if(buttonB) {
-                telemetry.addData("TURNING OFF AUTO", "           M");
-                telemetry.update();
-                start_game = false; // manual mode
-            }
-
-            // if AUTO mode is ON, then check color sensor and see if a ball is in bucket
-
             // button X is used to launch the ball in manual mode
-            if(buttonX && !start_game) {
+            if(buttonX) {
                 launch_position = (Catapult.getCurrentPosition());
                 launch_position += 500;
                 Catapult.setPower(1.00);
