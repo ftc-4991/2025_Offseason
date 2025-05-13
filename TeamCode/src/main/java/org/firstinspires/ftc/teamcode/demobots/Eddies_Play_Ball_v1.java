@@ -32,8 +32,7 @@ public class Eddies_Play_Ball_v1 extends LinearOpMode {
     boolean buttonY;
     boolean dpad_up;
     boolean dpad_down;
-
-    boolean start_game = false;
+    double speed = 0.50;
     int launch_position =0;
 
 
@@ -85,8 +84,8 @@ public class Eddies_Play_Ball_v1 extends LinearOpMode {
             Yvalue1 = Range.clip(Yvalue1, -1, 1);
             Yvalue2 = Range.clip(Yvalue2, -1, 1);
 
-            Left.setPower(Yvalue1);
-            Right.setPower(Yvalue2);
+            Left.setPower(Yvalue1 * speed);
+            Right.setPower(Yvalue2 * speed);
 
 
             // button X is used to launch the ball in manual mode
@@ -132,6 +131,11 @@ public class Eddies_Play_Ball_v1 extends LinearOpMode {
                 telemetry.update();
                 sleep(500);
               //  Catapult.setPower(0.00);
+            }
+            if (gamepad1.right_bumper) {
+                speed = 1;
+            } else if (gamepad1.left_bumper) {
+                speed = 0.50;
             }
         }
 
