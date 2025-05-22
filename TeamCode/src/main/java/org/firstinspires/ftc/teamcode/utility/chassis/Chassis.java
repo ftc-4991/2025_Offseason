@@ -8,9 +8,10 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 /**
  * This program is made to be able to simplify the creation/management of a
- * two wheel chassis.
+ * two wheel chassis. telemetry is optional and is defaulted off.Chassis speed
+ * can be changed and is defaulted to 100% power (1.0)
  * left joystick controls the left motor
- * right controls the right motor
+ * right joystick controls the right motor
  */
 public class Chassis {
 
@@ -22,6 +23,7 @@ public class Chassis {
     //Set other variables that may be used in methods later in the program
     boolean showTelemetry = false;
     double motorVal;
+    double cSpeed;
     /**
      * constructor to 'connect' the gamepad, telemetry, and motors you want to use
      *
@@ -58,12 +60,9 @@ public class Chassis {
      * what they are given
      */
     public void setMotorPower() {
-        left.setPower(getMotorValues("left"));
-        right.setPower(getMotorValues("right"));
+        left.setPower(getMotorValues("left") * cSpeed);
+        right.setPower(getMotorValues("right") * cSpeed);
     }
-
-
-
 
     /**
      * Sets the "showTelemetry variable to true. Needed for the getTelemetry method.
@@ -86,9 +85,16 @@ public class Chassis {
         telemetry.update();
         }
     }
-
     /**
-     * finds the controller value of an inputted string and returns it as a double
+     * Sets the value of the value (and maximum) of the chassis speed
+     * newSpeed should be between -1 to 0 to 1 (90% should be 0.9)
+     * @param newSpeed the maximum amount of power you want the motor to run at
+     */
+    public void setCSpeed(double newSpeed) {
+        cSpeed = newSpeed;
+    }
+    /**
+     * finds the controller value based on an inputted string and returns it as a double
      *
      * @param mN must be a String that's either "left" or "right"
      */
@@ -102,7 +108,7 @@ public class Chassis {
             return motorVal;
         }
         motorVal = -1;
-        telemetry.addData("Invalid input recieved: ", motorVal);
+        telemetry.addData("Invalid input received: ", motorVal);
        motorVal = 0;
        return motorVal;
     }
