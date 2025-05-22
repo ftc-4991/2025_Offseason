@@ -21,6 +21,7 @@ public class Chassis {
     DcMotor right;
     //Set other variables that may be used in methods later in the program
     boolean showTelemetry = false;
+    double motorVal;
     /**
      * constructor to 'connect' the gamepad, telemetry, and motors you want to use
      *
@@ -36,6 +37,19 @@ public class Chassis {
         left = m1;
         right = m2;
 
+    }
+
+    /**
+     * Alternative constructor for a Chassis object that will leave out  the telemetry
+     * in case it is not being used
+     * @param g1 a gamepad variable
+     * @param m1 the left wheel variable
+     * @param m2 the right wheel variable
+     */
+    public Chassis(Gamepad g1, DcMotor m1, DcMotor m2) {
+        gamepad = g1;
+        left = m1;
+        right =m2;
     }
 
 
@@ -60,11 +74,16 @@ public class Chassis {
 
     /**
      * if "showTelemetry" is true, when the code is run, the program will get all
-     * relevant telemetry and print it to the driver station
+     * relevant telemetry and print it to the driver station, otherwise it does nothing
+     * Method will automatically update telemetry in the method SUBJECT TO CHANGE
+     *
      */
     public void getTelemetry() {
         if (showTelemetry) {
-        //TODO add more stuff into here
+        telemetry.addData("Left Motor Pos: ", left);
+        telemetry.addData("Right Motor Pos: ", right);
+        telemetry.addData("Motor Power is at: ", motorVal);
+        telemetry.update();
         }
     }
 
@@ -72,11 +91,9 @@ public class Chassis {
      * finds the controller value of an inputted string and returns it as a double
      *
      * @param mN must be a String that's either "left" or "right"
-     * @return
      */
     private double getMotorValues(String mN) {
         String motorName = mN.toLowerCase();
-        double motorVal;
         if (motorName.equals("left")) {
             motorVal = gamepad.left_stick_y;
             return motorVal;
