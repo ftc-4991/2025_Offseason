@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.demobots;
+package ftc4991.sandbox.demobots;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * lift; D-pad left, right will open and close the cam mechanism; the "A" button provides a
  * short demonstration that lifts and drops the cone
  */
-@TeleOp(name="CamLiftDemo")
+//@TeleOp(name="CamLiftDemo")
 public class CamLiftDemo extends LinearOpMode {
 
     //Declare a motor to control the lift and a servo to control the Cam mechanisms

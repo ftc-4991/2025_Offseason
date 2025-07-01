@@ -1,15 +1,16 @@
 /*
 FTC Team 4991 GearFreaks
-Author(s):  Alex Pereira and Charles Burometto
+Author(s): Alex Pereira and Charles Burometto
 Date: 15 Feb 2019
 */
-package org.firstinspires.ftc.teamcode.demobots;
+package ftc4991.sandbox.demobots;
 
 import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.DistanceSensor;
 import com.qualcomm.robotcore.hardware.OpticalDistanceSensor;
 import com.qualcomm.robotcore.hardware.I2cAddr;
@@ -20,8 +21,8 @@ import com.qualcomm.robotcore.util.Range;
 
 import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 
-@TeleOp(name="Joes_Play_Ball_v0")
-public class Joes_Play_Ball_v0 extends LinearOpMode {
+//@TeleOp(name="Joes_Play_Ball_v1")
+public class Joes_Play_Ball_v1 extends LinearOpMode {
 
     // Declare OpMode members.
     DcMotor Left;
@@ -61,8 +62,9 @@ public class Joes_Play_Ball_v0 extends LinearOpMode {
 
         Catapult = hardwareMap.dcMotor.get("catapult");
         //Catapult.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        Catapult.setTargetPosition(0);
+        Catapult.setTargetPosition(Catapult.getCurrentPosition());
         Catapult.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        telemetry.addData("Initial Catapult: ", launch_position);
 
         color1 = hardwareMap.colorSensor.get("color1");
         color1.enableLed(true);
@@ -72,15 +74,13 @@ public class Joes_Play_Ball_v0 extends LinearOpMode {
         // set catapult to starting position
         launch_position = (Catapult.getCurrentPosition());
         launch_position += 1180;
-        Catapult.setPower(0.25);
+        Catapult.setPower(1.00);
         Catapult.setTargetPosition(launch_position);
-        telemetry.addData("Initializing Launcher: ", launch_position);
-        telemetry.update();
+        telemetry.addData("Launch Position: ", launch_position);
         sleep(2000);
         Catapult.setPower(0.00);
 
         telemetry.addData("Robot Initiatized:", "Ready to Start");
-        telemetry.addData("Catapult Position:", Catapult.getCurrentPosition());
         telemetry.update();
 
         waitForStart();
@@ -111,7 +111,7 @@ public class Joes_Play_Ball_v0 extends LinearOpMode {
             telemetry.update();
 
 
-            //  The A and B buttons are used to turn ON/OFF the automatica launching mode
+            //  The A and B buttons are used to turn ON/OFF the automatic launching mode
             if(buttonA) {
                 telemetry.addData("TURNING ON AUTO", "      A");
                 telemetry.update();
@@ -129,7 +129,7 @@ public class Joes_Play_Ball_v0 extends LinearOpMode {
                     sleep(2000);
                     launch_position = (Catapult.getCurrentPosition());
                     launch_position += 500;
-                    Catapult.setPower(0.25);
+                    Catapult.setPower(1.00);
                     Catapult.setTargetPosition(launch_position);
                     telemetry.addData("AUTO Launching Ball: ", launch_position);
 
@@ -138,7 +138,7 @@ public class Joes_Play_Ball_v0 extends LinearOpMode {
                     sleep(4000);
                     launch_position = (Catapult.getCurrentPosition());
                     launch_position += 1180;
-                    Catapult.setPower(0.25);
+                    Catapult.setPower(1.00);
                     Catapult.setTargetPosition(launch_position);
                     telemetry.addData("AUTO Resetting Launcher: ", launch_position);
                     telemetry.update();
@@ -158,7 +158,7 @@ public class Joes_Play_Ball_v0 extends LinearOpMode {
             if(buttonX && !start_game) {
                 launch_position = (Catapult.getCurrentPosition());
                 launch_position += 500;
-                Catapult.setPower(0.25);
+                Catapult.setPower(1.00);
                 Catapult.setTargetPosition(launch_position);
                 telemetry.addData("Manual Launching Ball: ", launch_position);
                 telemetry.update();
@@ -167,7 +167,7 @@ public class Joes_Play_Ball_v0 extends LinearOpMode {
                 sleep(4000);
                 launch_position = (Catapult.getCurrentPosition());
                 launch_position += 1180;
-                Catapult.setPower(0.25);
+                Catapult.setPower(1.00);
                 Catapult.setTargetPosition(launch_position);
                 telemetry.addData("Manual Resetting Launcher: ", launch_position);
                 telemetry.update();
@@ -175,35 +175,44 @@ public class Joes_Play_Ball_v0 extends LinearOpMode {
                 //    sleep(1000);
                 //}
                 sleep(5000);
-                Catapult.setPower(0.00);
+               // Catapult.setPower(0.00);
             }
             if(dpad_down) {
                 // increment the Catapult motor by 10;
                 launch_position = (Catapult.getCurrentPosition());
-                launch_position += 10;
-                Catapult.setPower(0.25);
+                launch_position += 105;
+                Catapult.setPower(1.00);
                 Catapult.setTargetPosition(launch_position);
                 telemetry.addData("INCREMENTING BY 10:", launch_position);
                 telemetry.update();
                 sleep(500);
-                Catapult.setPower(0.00);
+              //  Catapult.setPower(0.00);
             }
             if(dpad_up) {
                 // decrement the Catapult motor by 10;
                 launch_position = (Catapult.getCurrentPosition());
                 telemetry.addData("Starting down:", launch_position);
                 telemetry.update();
-                launch_position -= 10;
+                launch_position -= 105;
                 Catapult.setPower(1.00);
                 Catapult.setTargetPosition(launch_position);
                 telemetry.addData("DECREMENTING by 10:", launch_position);
                 telemetry.update();
                 sleep(500);
-                Catapult.setPower(0.00);
+              //  Catapult.setPower(0.00);
             }
         }
 
         //Prepares To End Match
+        // set catapult to a non-tension position
+        launch_position = (Catapult.getCurrentPosition());
+        launch_position -= 500;
+        Catapult.setPower(1.00);
+        Catapult.setTargetPosition(launch_position);
+        telemetry.addData("Catapult at Rest: ", launch_position);
+        telemetry.update();
+
+
         Left.setPower(0.00);
         Right.setPower(0.00);
         Catapult.setPower(0.00);
