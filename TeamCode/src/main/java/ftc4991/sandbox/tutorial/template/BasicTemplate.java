@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.tutorial.template;
+package ftc4991.sandbox.tutorial.template;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -10,7 +10,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 /**
  * We're going to program the mechanise ( the shaft with the wheel and servo attached) to active the motor and connect the serve
  */
-@TeleOp
+//@TeleOp
 public class BasicTemplate extends LinearOpMode {
 
     //Declare a Dc motor variable

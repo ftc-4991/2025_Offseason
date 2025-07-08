@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.tutorial;
+package ftc4991.sandbox.tutorial.template;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.Servo;
  * for a short time, then move the servo through a few positions, then repeat.
  */
 
-@TeleOp
+//@TeleOp
 public class Solution extends LinearOpMode {
 
     //Declare a Dc motor

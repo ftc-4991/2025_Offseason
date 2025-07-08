@@ -1,7 +1,9 @@
-package org.firstinspires.ftc.teamcode.tutorial.template;
+package ftc4991.sandbox.tutorial.template;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.Servo;
 
 //Give a description of what the program will do
 /*
@@ -10,12 +12,14 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
  * also send telemetry for display on the driver station.
  */
 
-@TeleOp(name="GamepadInput")
-public class GamepadInputTemplate extends LinearOpMode {
+//@TeleOp(name="SolutionGamepadInput")
+public class SolutionGamepadInput extends LinearOpMode {
 
     //Declare a Dc motor
+    DcMotor motor1 = null;
 
     //Declare a 180 degree servo
+    Servo   servo1 = null;
 
     @Override
 
@@ -23,9 +27,15 @@ public class GamepadInputTemplate extends LinearOpMode {
 
         //add the motor and servo to the hardware map
         //The device name you set in the hardware map will be what you have to type in the config
+        motor1 = hardwareMap.get(DcMotor.class, "motor");
+        servo1 = hardwareMap.get(Servo.class,"servo");
 
         //display some initial status info for the driver with program state, motor power,
         // and initial servo position.
+        telemetry.addData("Status", "Initialized");
+        telemetry.addData("Motor Power", "%.2f", motor1.getPower());
+        telemetry.addData("Servo Position", "%.2f", servo1.getPosition());
+        telemetry.update();
 
         waitForStart();
 
@@ -39,9 +49,8 @@ public class GamepadInputTemplate extends LinearOpMode {
              * pushing the stick forward increases motor power towards +1.0, moving the wheel forward.
              * Pulling the stick back increases the motor power towards -1.0, moving the wheel in reverse.
              */
-
-            // Declare a motor power variable and assign to negative gamepad left joystick y-axis value.
-            // Set the motor power to this value.
+            double motorPower = -gamepad1.left_stick_y;
+            motor1.setPower(motorPower);
 
             /*
              * Assign gamepad buttons to servo positions. The current state of each button is returned when read.
@@ -53,10 +62,24 @@ public class GamepadInputTemplate extends LinearOpMode {
              * and responding to a different button press.
              */
 
+            if (gamepad1.y) {
+                servo1.setPosition(1.0);  // Left
+            } else if (gamepad1.x || gamepad1.b)  {
+                servo1.setPosition(0.5);  // Center
+            } else if (gamepad1.a) {
+                servo1.setPosition(0.0);  // Right
+            }
+            sleep(2000);
 
             // update status information on the driver station with program state,
             // current motor power and servo position.
+            telemetry.addData("Status", "Running");
+            telemetry.addData("Motor Power", "%.2f", motor1.getPower());
+            telemetry.addData("Servo Position", "%.2f", servo1.getPosition());
+            telemetry.update();
 
         }
+
     }
+
 }
